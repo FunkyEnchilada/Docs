@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Docs</title>
+<meta name="description" content="Google Docs">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%234285f4%22%20d%3D%22M14%202H6a2%202%200%200%200-2%202v16a2%202%200%200%200%202%202h12a2%202%200%200%200%202-2V8z%22%2F%3E%3Cpath%20fill%3D%22%23a1c2fa%22%20d%3D%22M14%202v6h6z%22%2F%3E%3Cpath%20fill%3D%22%23f1f1f1%22%20d%3D%22M8%2012h8v1.5H8zm0%203h8v1.5H8zm0%203h5v1.5H8z%22%2F%3E%3C%2Fsvg%3E">
+<style>
+  :root{
+    --bg:oklch(0.145 0.022 265);
+    --fg:oklch(0.97 0.008 250);
+    --primary:oklch(0.69 0.16 285);
+    --accent:oklch(0.81 0.13 207);
+    --muted-fg:oklch(0.68 0.025 255);
+    --border:oklch(0.95 0.01 250 / 12%);
+    --input:oklch(0.95 0.01 250 / 14%);
+    --surface:oklch(0.98 0.005 250 / 5%);
+    --surface-strong:oklch(0.98 0.005 250 / 9%);
+    --code:oklch(0.105 0.015 265 / 72%);
+    --destructive:oklch(0.577 0.245 27.325);
+    --r:0.75rem;
+  }
+  *{box-sizing:border-box;border-color:var(--border);}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);color:var(--fg);min-width:320px;
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  .mono{font-family:ui-monospace,"Cascadia Mono","Segoe UI Mono",Consolas,monospace;}
+  button{font:inherit;cursor:pointer;}
+  input,textarea{font:inherit;}
+
+  /* ---------- cover (WikiLearn) ---------- */
+  #cover{min-height:100vh;}
+  .cov-head{border-bottom:1px solid var(--border);}
+  .cov-head-in{max-width:64rem;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.75rem 1.25rem;font-size:.875rem;}
+  .cov-logo{font-family:Georgia,'Times New Roman',serif;font-size:1.125rem;}
+  .cov-nav{display:none;gap:1.25rem;color:var(--muted-fg);}
+  @media(min-width:640px){.cov-nav{display:flex;}}
+  .cov-body{max-width:64rem;margin:0 auto;padding:2rem 1.25rem;}
+  .cov-title{font-family:Georgia,'Times New Roman',serif;font-size:1.875rem;font-weight:400;margin:0;border-bottom:1px solid var(--border);padding-bottom:.5rem;}
+  .cov-sub{margin:.5rem 0 0;font-size:.75rem;color:var(--muted-fg);}
+  .cov-article{margin-top:1.5rem;display:flex;flex-direction:column;gap:1.5rem;line-height:1.75;}
+  .cov-article h2{font-family:Georgia,'Times New Roman',serif;font-size:1.25rem;font-weight:400;border-bottom:1px solid var(--border);padding-bottom:.25rem;margin:0;}
+  .cov-article p{margin:.5rem 0 0;opacity:.85;}
+  .cov-foot{margin-top:3rem;border-top:1px solid var(--border);padding-top:1rem;font-size:.75rem;color:var(--muted-fg);}
+  .dot-btn{background:none;border:none;color:var(--muted-fg);padding:0;margin-left:.25rem;letter-spacing:1px;}
+
+  /* ---------- vault ---------- */
+  #vault{min-height:100vh;position:relative;overflow:hidden;
+    background-image:
+      radial-gradient(circle at 12% 10%, oklch(0.69 0.16 285 / 30%), transparent 32%),
+      radial-gradient(circle at 88% 78%, oklch(0.81 0.13 207 / 23%), transparent 34%),
+      radial-gradient(circle at 60% 40%, oklch(0.69 0.16 285 / 13%), transparent 30%);
+  }
+  .v-head{position:relative;z-index:10;max-width:72rem;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.25rem;}
+  .v-brand{display:flex;align-items:center;gap:.75rem;}
+  .v-logo{width:2.25rem;height:2.25rem;display:grid;place-items:center;border:1px solid oklch(0.69 0.16 285 / 40%);background:oklch(0.69 0.16 285 / 20%);border-radius:.75rem;font-weight:700;font-size:.75rem;color:var(--primary);}
+  .v-brand-name{margin:0;font-size:.875rem;font-weight:600;}
+  .v-brand-sub{margin:0;font-size:11px;color:var(--muted-fg);}
+  .v-head-actions{display:flex;align-items:center;gap:.5rem;}
+  .v-count{display:none;border-radius:9999px;background:var(--surface);padding:.375rem .75rem;font-size:.75rem;color:var(--muted-fg);}
+  @media(min-width:640px){.v-count{display:inline-block;}}
+
+  .v-main{position:relative;z-index:10;max-width:72rem;margin:0 auto;padding:0 1.25rem 4rem;}
+  .glass{background:var(--surface);border:1px solid var(--border);box-shadow:0 24px 80px -38px oklch(0.04 0.03 270 / 75%);backdrop-filter:blur(22px);}
+  .rise{animation:rise .42s cubic-bezier(.2,.8,.2,1) both;}
+  @keyframes rise{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;white-space:nowrap;border-radius:calc(var(--r) - 2px);font-size:.875rem;font-weight:500;border:none;transition:background .15s,color .15s;padding:0 .75rem;height:2.25rem;}
+  .btn-console{background:var(--primary);color:oklch(0.99 0 0);box-shadow:0 10px 30px -12px var(--primary);}
+  .btn-console:hover{filter:brightness(1.08);}
+  .btn-glass{border:1px solid var(--border);background:var(--surface);color:var(--fg);}
+  .btn-glass:hover{background:var(--surface-strong);}
+  .btn-subtle{background:oklch(0.69 0.16 285 / 15%);color:var(--primary);border:1px solid oklch(0.69 0.16 285 / 30%);}
+  .btn-subtle:hover{background:oklch(0.69 0.16 285 / 25%);}
+  .btn-ghost{background:transparent;color:var(--fg);text-align:left;}
+  .btn-ghost:hover{background:var(--surface-strong);}
+  .btn-round{border-radius:9999px;padding:0 1rem;}
+  .btn-icon{width:2.25rem;height:2.25rem;padding:0;border-radius:calc(var(--r) - 2px);}
+  .btn svg{width:1rem;height:1rem;flex-shrink:0;pointer-events:none;}
+  .btn:disabled{opacity:.5;cursor:not-allowed;pointer-events:none;}
+
+  .hero{border-radius:1.5rem;padding:1.75rem;}
+  @media(min-width:640px){.hero{padding:2.5rem;}}
+  .hero-top{display:flex;flex-direction:column;gap:2rem;}
+  @media(min-width:1024px){.hero-top{flex-direction:row;align-items:flex-end;justify-content:space-between;}}
+  .badge{display:inline-flex;align-items:center;gap:.5rem;margin-bottom:.75rem;border-radius:9999px;background:oklch(0.81 0.13 207 / 10%);padding:.25rem .75rem;font-size:.75rem;font-weight:500;color:var(--accent);}
+  .badge i{width:6px;height:6px;border-radius:9999px;background:var(--accent);}
+  .hero h1{margin:0;font-size:2.25rem;font-weight:600;line-height:1.15;}
+  @media(min-width:640px){.hero h1{font-size:3rem;}}
+  .hero h1 span{color:var(--primary);}
+  .hero-sub{margin:1rem 0 0;max-width:36rem;line-height:1.625;color:var(--muted-fg);font-size:1rem;}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:.5rem;}
+  .filelabel{display:inline-flex;height:2.5rem;align-items:center;gap:.5rem;border-radius:9999px;border:1px solid var(--border);background:var(--surface);padding:0 1rem;font-size:.875rem;font-weight:500;cursor:pointer;}
+  .filelabel:hover{background:oklch(0.81 0.13 207 / 10%);}
+  .hero-cards{margin-top:2rem;display:grid;gap:1rem;}
+  @media(min-width:640px){.hero-cards{grid-template-columns:1fr 1fr;}}
+  .hcard{border-radius:1rem;border:1px solid var(--border);background:var(--surface);padding:1.25rem;}
+  .hcard .k{margin:0;font-size:.75rem;color:var(--muted-fg);}
+  .hcard .t{margin:.5rem 0 0;font-size:.875rem;font-weight:500;}
+  .hcard .d{margin:.25rem 0 0;font-size:.75rem;color:var(--muted-fg);}
+
+  .work-grid{margin-top:1.5rem;display:grid;gap:1.5rem;}
+  @media(min-width:1024px){.work-grid{grid-template-columns:3fr 2fr;}}
+
+  /* player */
+  #playerPanel{border-radius:1.5rem;padding:1.25rem;}
+  #playerPanel.skin-invisible{padding:0;background:none;border:none;box-shadow:none;backdrop-filter:none;}
+  #playerPanel.skin-terminal{padding:0;background:var(--code);border:1px solid oklch(0.81 0.13 207 / 40%);box-shadow:0 0 40px oklch(0.81 0.13 207 / 15%);}
+  .term-bar{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid oklch(0.81 0.13 207 / 30%);padding:.625rem 1rem;font-size:.75rem;color:var(--accent);}
+  .term-dots{display:flex;gap:.375rem;align-items:center;}
+  .term-dots i{width:10px;height:10px;border-radius:9999px;}
+  .frost-bar{display:flex;align-items:center;justify-content:space-between;padding:0 .5rem .75rem 1rem;font-size:.75rem;color:var(--muted-fg);}
+  .live{display:inline-flex;align-items:center;gap:.375rem;color:var(--accent);}
+  .live i{width:6px;height:6px;border-radius:9999px;background:var(--accent);}
+  #playerStage{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:var(--code);}
+  .skin-invisible #playerStage{border-radius:1.5rem;border:1px solid oklch(0.95 0.01 250 / 40%);}
+  .skin-frosted #playerStage{border-radius:1rem;border:1px solid var(--border);}
+  .skin-terminal #playerStage{border-radius:0;border:none;}
+  #playerStage iframe{width:100%;height:100%;border:0;display:block;}
+  .stage-fade{pointer-events:none;position:absolute;left:0;right:0;bottom:0;height:5rem;background:linear-gradient(to top, oklch(0.145 0.022 265 / 70%), transparent);}
+  .fs-btn{position:absolute;bottom:.75rem;right:.75rem;border-radius:9999px;}
+  .term-foot{display:flex;align-items:center;gap:.5rem;padding:.625rem 1rem;font-size:.75rem;color:var(--accent);}
+  .term-foot .cur{margin-left:auto;display:inline-block;width:8px;height:14px;background:var(--accent);animation:pulse 1.2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+  .player-home{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.35rem;text-align:center;padding:1.5rem;color:var(--muted-fg);}
+  .player-home .ph-mark{width:2.75rem;height:2.75rem;display:grid;place-items:center;border-radius:1rem;border:1px solid oklch(0.69 0.16 285 / 40%);background:oklch(0.69 0.16 285 / 20%);color:var(--primary);font-weight:700;font-size:.875rem;margin-bottom:.5rem;}
+  .player-home .ph-title{margin:0;font-size:1rem;font-weight:600;color:var(--fg);}
+  .player-home .ph-sub{margin:0;font-size:.875rem;max-width:24rem;}
+
+  /* library */
+  .lib{border-radius:1.5rem;padding:1.25rem;display:flex;flex-direction:column;}
+  .lib-head{display:flex;align-items:center;justify-content:space-between;padding:0 .25rem .75rem;font-size:.75rem;}
+  .lib-head .l{color:var(--muted-fg);}
+  .lib-head .r{color:var(--primary);}
+  .searchwrap{position:relative;}
+  .searchwrap svg{position:absolute;left:.75rem;top:50%;width:1rem;height:1rem;transform:translateY(-50%);color:var(--muted-fg);}
+  #search{width:100%;height:2.5rem;border-radius:calc(var(--r) - 2px);border:1px solid var(--input);background:var(--code);color:var(--fg);padding:0 .75rem 0 2.25rem;font-size:.875rem;outline:none;}
+  #search:focus{box-shadow:0 0 0 1px var(--primary);}
+  #search::placeholder{color:var(--muted-fg);}
+  #libList{margin-top:.75rem;flex:1;min-height:11rem;display:flex;flex-direction:column;gap:.5rem;border-radius:1rem;background:var(--code);padding:.5rem;overflow:auto;}
+  #libList .btn{justify-content:flex-start;text-align:left;}
+  #libList .btn svg{flex-shrink:0;}
+  #libList .name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left;}
+  .lib-empty{padding:1rem;text-align:center;font-size:.875rem;color:var(--muted-fg);}
+  .lib-actions{margin-top:1rem;display:flex;gap:.5rem;}
+  .lib-actions .grow{flex:1;}
+
+  /* skins */
+  .skins{margin-top:1.5rem;display:grid;gap:1rem;}
+  @media(min-width:640px){.skins{grid-template-columns:repeat(3,1fr);}}
+  .skin-btn{height:auto;align-items:flex-start;justify-content:flex-start;text-align:left;border-radius:1rem;padding:1.25rem;}
+  .skin-btn .k{display:block;font-size:.75rem;color:var(--muted-fg);}
+  .skin-btn .t{display:block;margin-top:.25rem;font-size:.875rem;font-weight:500;text-transform:capitalize;}
+  .skin-btn .d{display:block;margin-top:.25rem;font-size:.75rem;font-weight:400;color:var(--muted-fg);}
+  .fineprint{margin:1.5rem 0 0;text-align:center;font-size:.75rem;color:var(--muted-fg);}
+
+  /* modal */
+  #modalWrap{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;background:oklch(0.05 0.02 265 / 60%);padding:1rem;}
+  #modalWrap.open{display:flex;}
+  .modal{width:100%;max-width:28rem;border-radius:1rem;border:1px solid var(--border);background:oklch(0.185 0.026 265);padding:1.5rem;}
+  .modal h3{margin:0;font-size:1.125rem;font-weight:600;}
+  .modal .mdesc{margin:.25rem 0 0;font-size:.875rem;color:var(--muted-fg);}
+  #mName,#mSource{width:100%;border-radius:calc(var(--r) - 2px);border:1px solid var(--input);background:var(--code);color:var(--fg);padding:.625rem .75rem;font-size:.875rem;outline:none;}
+  #mName{height:2.5rem;margin-top:1rem;}
+  #mSource{margin-top:.75rem;min-height:7rem;resize:vertical;}
+  #mName::placeholder,#mSource::placeholder{color:var(--muted-fg);}
+  #mError{margin:.5rem 0 0;font-size:.875rem;color:var(--destructive);display:none;}
+  .m-foot{margin-top:1rem;display:flex;justify-content:flex-end;gap:.5rem;}
+
+  [hidden]{display:none !important;}
+</style>
+</head>
+<body>
+
+<!-- ============ COVER: WikiLearn encyclopedia ============ -->
+<div id="cover">
+  <header class="cov-head">
+    <div class="cov-head-in">
+      <span class="cov-logo">WikiLearn</span>
+      <nav class="cov-nav"><span>Main page</span><span>Contents</span><span>Random article</span><span>Help</span></nav>
+    </div>
+  </header>
+  <div class="cov-body">
+    <h1 class="cov-title" id="aTitle"></h1>
+    <p class="cov-sub">From the open reference library</p>
+    <article class="cov-article" id="aSections"></article>
+    <footer class="cov-foot">
+      This page was last edited on 14 March 2026. Text is available under a Creative Commons license<button type="button" class="dot-btn" id="unlockBtn" aria-label="Cite this page">.</button>
+    </footer>
+  </div>
+</div>
+
+<!-- ============ VAULT ============ -->
+<div id="vault" hidden>
+  <header class="v-head">
+    <div class="v-brand">
+      <div class="v-logo mono">0x</div>
+      <div><p class="v-brand-name">vaultframe</p><p class="v-brand-sub">private embed cabinet</p></div>
+    </div>
+    <div class="v-head-actions">
+      <span class="v-count" id="embedCount"></span>
+      <button type="button" class="btn btn-glass btn-round" id="focusBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+        Focus mode
+      </button>
+    </div>
+  </header>
+
+  <main class="v-main">
+    <section class="glass hero rise">
+      <div class="hero-top">
+        <div style="max-width:42rem;">
+          <p class="badge"><i></i> sandbox ready</p>
+          <h1>Drop in a game. <span>Keep the workspace quiet.</span></h1>
+          <p class="hero-sub">Paste an iframe snippet or playable URL. Vaultframe extracts the source and runs it in an isolated player.</p>
+        </div>
+        <div class="hero-actions">
+          <label class="filelabel">
+            <input type="file" id="fileInput" accept=".html,.htm,text/html" style="position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;" multiple>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;"><path d="M12 5v14M5 12h14"/></svg>
+            Open .html
+          </label>
+          <button type="button" class="btn btn-console btn-round" id="addBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+            Add embed
+          </button>
+        </div>
+      </div>
+      <div class="hero-cards">
+        <div class="hcard"><p class="k mono">01 / embed</p><p class="t">Paste source or URL</p><p class="d">Only the safe http(s) source is kept.</p></div>
+        <div class="hcard"><p class="k mono">02 / switch</p><p class="t">Press Escape for focus mode</p><p class="d">Swap instantly to a clean notes workspace.</p></div>
+      </div>
+    </section>
+
+    <section class="work-grid">
+      <div id="playerPanel" class="glass rise" style="animation-delay:80ms;">
+        <div id="skinChrome"></div>
+        <div id="playerStage">
+          <div class="player-home" id="playerHome">
+            <div class="ph-mark mono">0x</div>
+            <p class="ph-title">Nothing loaded</p>
+            <p class="ph-sub">Pick something from the library on the right, or open a local .html file.</p>
+          </div>
+          <div class="stage-fade"></div>
+          <button type="button" class="btn btn-glass btn-icon fs-btn" id="fsBtn" title="Open fullscreen">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+            <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Open fullscreen</span>
+          </button>
+        </div>
+        <div id="termFoot"></div>
+      </div>
+
+      <div class="glass lib rise" style="animation-delay:140ms;">
+        <div class="lib-head"><span class="l mono">embed library</span><span class="r">local</span></div>
+        <div class="searchwrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input id="search" type="text" placeholder="Search embeds">
+        </div>
+        <div id="libList"></div>
+        <div class="lib-actions">
+          <button type="button" class="btn btn-subtle grow" id="renameBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+            Rename
+          </button>
+          <button type="button" class="btn btn-glass btn-icon" id="copyBtn" title="Copy source">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+            <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Copy source</span>
+          </button>
+          <button type="button" class="btn btn-glass btn-icon" id="deleteBtn" title="Delete embed">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Delete embed</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="skins" id="skinBtns"></section>
+    <p class="fineprint">Use only games and sources you own or have permission to embed. Some sites block iframe display.</p>
+  </main>
+
+  <div id="modalWrap">
+    <div class="modal">
+      <h3>Add a new embed</h3>
+      <p class="mdesc">Use a URL or iframe snippet from a source that permits embedding.</p>
+      <input id="mName" type="text" placeholder="Display name">
+      <textarea id="mSource" placeholder="https://… or &lt;iframe src=…&gt;"></textarea>
+      <p id="mError">Add a name and a valid http(s) URL or iframe snippet.</p>
+      <div class="m-foot">
+        <button type="button" class="btn btn-glass" id="mCancel">Cancel</button>
+        <button type="button" class="btn btn-console" id="mAdd">Add to library</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* ================= article data ================= */
+var articles = [
+  { title: "Photosynthesis", sections: [
+    { heading: "Overview", body: "Photosynthesis is the process by which green plants, algae, and some bacteria convert light energy into chemical energy stored in glucose. Carbon dioxide from the air and water drawn from the soil are transformed inside the chloroplasts, using pigments such as chlorophyll a and b to absorb mostly red and blue wavelengths of light. The process releases the oxygen that makes aerobic life possible and forms the energetic foundation of nearly every food chain on Earth. Scientists estimate that photosynthetic organisms fix well over one hundred billion tonnes of carbon each year, a figure that dwarfs every other natural carbon pathway." },
+    { heading: "Light-dependent reactions", body: "These reactions take place in the thylakoid membranes of the chloroplast. When a photon strikes a chlorophyll molecule, its energy is passed along a chain of pigments until it reaches a reaction centre, where it drives the splitting of water molecules. This releases oxygen as a by-product and frees electrons that travel down an electron transport chain. The movement of these electrons pumps protons across the membrane, and the resulting gradient powers ATP synthase, producing ATP. A second pigment system lifts the electrons to a still higher energy level so they can reduce NADP+ to NADPH, completing the two energy-carrying molecules needed for the next stage." },
+    { heading: "The Calvin cycle", body: "In the stroma, the enzyme RuBisCO attaches carbon dioxide to a five-carbon sugar, beginning a series of reactions known as the Calvin cycle. Over several turns of the cycle, powered by ATP and NADPH from the light reactions, three-carbon sugars are produced and later assembled into glucose, sucrose, starch, and the other carbohydrates a plant needs for growth and storage. Because RuBisCO can also bind oxygen, hot and dry conditions reduce efficiency, and plants in those climates have evolved alternative pathways such as C4 and CAM photosynthesis to concentrate carbon dioxide around the enzyme." },
+    { heading: "Ecological significance", body: "Beyond feeding plants, photosynthesis shapes the atmosphere and climate. The rise of photosynthetic cyanobacteria roughly two and a half billion years ago triggered the Great Oxidation Event, transforming the atmosphere and enabling complex life. Today, forests and ocean phytoplankton together account for nearly all primary production on the planet, and their health is closely tied to the stability of the global climate system." }
+  ]},
+  { title: "The Treaty of Westphalia", sections: [
+    { heading: "Background", body: "The Peace of Westphalia refers to a series of treaties signed in 1648 in the Westphalian cities of Osnabrück and Münster. They brought an end to the Thirty Years' War in the Holy Roman Empire and the Eighty Years' War between Spain and the Dutch Republic. The negotiations were remarkable for their scale: delegations from nearly two hundred European powers participated over several years, making it one of the first truly continental peace conferences. The wars it ended had devastated large parts of Central Europe, with some regions losing a third or more of their population to fighting, famine, and disease." },
+    { heading: "Terms", body: "The agreements recognised the sovereignty of several states within and around the Empire, confirmed the independence of the Dutch Republic and the Swiss Confederation, and redrew numerous territorial boundaries. France gained territory in Alsace, Sweden secured lands on the Baltic coast, and Brandenburg-Prussia emerged strengthened. On religion, the treaties extended the toleration established by the Peace of Augsburg of 1555 to Calvinists, alongside Catholics and Lutherans, and fixed the religious character of each territory largely as it had stood in 1624." },
+    { heading: "Legacy", body: "Historians often cite Westphalia as the origin of the modern concept of state sovereignty — the idea that each state holds exclusive authority over its territory and domestic affairs, free from external interference. This so-called Westphalian system became a foundation of international law and diplomacy. Modern scholars continue to debate how much the treaties themselves shaped the later order, with some arguing that the principle of non-interference was attributed to Westphalia only much later, but the term remains a fixture of political science." },
+    { heading: "Commemoration", body: "The three-hundredth anniversary in 1948 and the three-hundred-and-fiftieth in 1998 were marked by conferences and publications reassessing the treaties' meaning. Münster's town hall, where the instruments were signed, preserves the Hall of Peace as a museum, and the city continues to host ceremonies on the anniversary each October." }
+  ]},
+  { title: "Plate Tectonics", sections: [
+    { heading: "Overview", body: "Plate tectonics is the scientific theory that Earth's outer shell, the lithosphere, is divided into large rigid plates that move slowly over the more ductile asthenosphere beneath them. Plates typically drift a few centimetres per year — about the speed at which fingernails grow — yet over millions of years this motion has opened and closed oceans, raised mountain ranges, and rearranged continents. The theory unified earlier ideas about continental drift and seafloor spreading during the 1960s and now underpins nearly all of modern geology." },
+    { heading: "Plate boundaries", body: "Divergent boundaries form where plates move apart, creating new crust at mid-ocean ridges such as the Mid-Atlantic Ridge. Convergent boundaries occur where plates collide: oceanic crust may dive beneath another plate in a subduction zone, generating deep ocean trenches and volcanic arcs, while the collision of two continental plates produces great mountain ranges like the Himalayas. Transform boundaries, where plates slide horizontally past one another, produce faults such as the San Andreas Fault in California and are responsible for frequent shallow earthquakes." },
+    { heading: "Evidence", body: "Support for the theory comes from many independent lines of evidence. Identical fossils and rock formations appear on continents now separated by oceans. The ocean floor shows symmetrical stripes of alternating magnetic polarity on either side of mid-ocean ridges, recording reversals of Earth's magnetic field as new crust cooled. The global distribution of earthquakes and volcanoes traces plate edges almost exactly, and direct satellite measurements now confirm the predicted rates of plate motion." },
+    { heading: "Driving forces", body: "The engine of plate motion is heat escaping from Earth's interior. Slab pull — the weight of cold, dense oceanic plates sinking into the mantle at subduction zones — is now thought to be the dominant force, assisted by ridge push at spreading centres and by mantle convection currents. This slow circulation of rock also recycles carbon and water between the surface and the deep Earth, helping to stabilise the climate over geological time." }
+  ]},
+  { title: "Supply and Demand", sections: [
+    { heading: "Definition", body: "Supply and demand is an economic model of price determination in a market. It postulates that, in a competitive market, the unit price of a good will vary until it settles at the point where the quantity demanded by consumers equals the quantity supplied by producers. This point is called the equilibrium, and the model predicts that markets left to themselves will tend toward it as buyers and sellers adjust to shortages and surpluses." },
+    { heading: "The two curves", body: "The demand curve shows that, all else equal, consumers buy more of a good as its price falls, reflecting both the substitution of cheaper goods and the greater purchasing power of a fixed income. The supply curve slopes the opposite way: higher prices make production more profitable and draw new sellers into the market. Where the curves cross, neither side has an incentive to change behaviour, and the market clears." },
+    { heading: "Shifts in the curves", body: "Changes in income, consumer preferences, population, or the prices of related goods shift the entire demand curve, while production costs, technology, taxes, and the number of sellers shift supply. Each shift produces a new equilibrium price and quantity. A poor harvest, for example, shifts the supply of wheat leftward, raising prices and reducing the quantity traded until the market settles again." },
+    { heading: "Elasticity", body: "Price elasticity measures how responsive quantity is to a change in price. Necessities such as basic food and medicine tend to be inelastic — demand barely moves when prices rise — while luxury items and goods with many substitutes are usually more elastic. Elasticity matters for policy: taxes on inelastic goods raise revenue with little change in consumption, whereas taxes on elastic goods mainly shrink the market." }
+  ]},
+  { title: "The Water Cycle", sections: [
+    { heading: "Overview", body: "The water cycle, or hydrologic cycle, describes the continuous movement of water on, above, and below the surface of the Earth. Water changes state between liquid, vapour, and ice as it circulates through the atmosphere, land, oceans, and living organisms. The total amount of water on Earth is essentially fixed; the same molecules falling as rain today may once have flowed through ancient rivers or been locked in glaciers for thousands of years." },
+    { heading: "Main processes", body: "Evaporation lifts water from oceans, lakes, and soil, while transpiration releases it from plants; together these are called evapotranspiration. As moist air rises and cools, condensation forms clouds of tiny droplets or ice crystals. When these grow heavy enough, precipitation returns water to the surface as rain, snow, sleet, or hail. On the ground, some water runs off into streams and rivers, some infiltrates the soil to recharge groundwater and aquifers, and some is stored in ice caps or lakes before rejoining the flow." },
+    { heading: "Residence times", body: "Water spends very different lengths of time in each reservoir. A typical water molecule stays in the atmosphere for only about nine days, in a river for a few weeks, in the ocean for over three thousand years, and in deep groundwater or polar ice for tens of thousands of years. These long storage times mean that pollution of aquifers or the melting of ancient ice can have consequences lasting many human generations." },
+    { heading: "Importance", body: "The cycle regulates climate by moving heat from the tropics toward the poles, supports every terrestrial ecosystem, and supplies the fresh water on which agriculture and cities depend. Human activity — deforestation, urbanisation, dam building, and groundwater pumping — can alter local patterns of runoff and rainfall, while a warming climate intensifies the cycle overall, making wet regions wetter and dry regions more prone to drought." }
+  ]},
+  { title: "The Printing Press", sections: [
+    { heading: "Origins", body: "The printing press with movable type was developed in Europe around 1440 by Johannes Gutenberg, a goldsmith from Mainz. Although block printing and movable type had existed in China and Korea centuries earlier, Gutenberg's system combined a screw press adapted from winemaking, durable metal type cast from a lead alloy, and oil-based ink into a process that could reproduce pages quickly and consistently. His famous Bible, completed around 1455, demonstrated that printed books could rival the finest manuscripts." },
+    { heading: "Spread across Europe", body: "Within fifty years, presses operated in more than two hundred cities across Europe. The output was staggering by earlier standards: where a monastery scriptorium might produce a handful of books a year, the presses of the fifteenth century produced millions of volumes. Prices fell sharply, and for the first time books became affordable to merchants, professionals, and eventually ordinary households." },
+    { heading: "Effects on society", body: "The consequences reached nearly every field. Scholars could compare identical texts and build on each other's work, accelerating science. Religious reformers such as Martin Luther used pamphlets to spread ideas far faster than authorities could suppress them, reshaping the religious map of Europe. Standardised printed texts helped stabilise languages, spread literacy, and gave governments a new tool for law and administration — and, in time, for censorship as well." },
+    { heading: "Later developments", body: "The basic design changed little until the nineteenth century, when steam-powered rotary presses and mechanised typesetting multiplied output again. The twentieth century brought offset lithography, and the late twentieth brought digital typesetting. Though screens now carry much of what was once printed, the printing press remains the emblematic technology of the information age it made possible." }
+  ]},
+  { title: "Cellular Respiration", sections: [
+    { heading: "Overview", body: "Cellular respiration is the set of metabolic reactions by which cells convert the chemical energy in nutrients into adenosine triphosphate, or ATP, the energy currency of the cell. In most eukaryotic organisms, respiration is aerobic: glucose is fully broken down in the presence of oxygen, yielding carbon dioxide, water, and roughly thirty ATP molecules per glucose molecule — far more than fermentation can provide. The process is essentially the reverse of photosynthesis, and together the two cycle carbon and energy through the biosphere." },
+    { heading: "Glycolysis", body: "Respiration begins in the cytoplasm with glycolysis, an ancient pathway found in nearly all living things. One six-carbon glucose molecule is split into two three-carbon pyruvate molecules, generating a small net gain of ATP and electrons carried by NADH. Glycolysis requires no oxygen, which is why it is thought to predate the oxygen-rich atmosphere, and it can sustain cells temporarily when oxygen is scarce." },
+    { heading: "The Krebs cycle", body: "In the mitochondria, pyruvate is converted to acetyl-CoA and enters the Krebs cycle, also called the citric acid cycle. Over a series of enzyme-driven steps, the carbon atoms are released as carbon dioxide while energy is captured as ATP, NADH, and FADH2. These electron carriers hold most of the energy harvested from the original glucose molecule, setting the stage for the final and most productive phase." },
+    { heading: "Oxidative phosphorylation", body: "Along the inner mitochondrial membrane, electrons from NADH and FADH2 pass through a chain of protein complexes, and their energy is used to pump protons across the membrane. Oxygen sits at the end of the chain as the final electron acceptor, forming water. The protons then flow back through ATP synthase, a remarkable rotary enzyme that uses the gradient to produce the bulk of the cell's ATP. When oxygen is absent, cells fall back on fermentation, regenerating the molecules needed to keep glycolysis running but extracting only a fraction of the available energy." }
+  ]},
+  { title: "The Silk Road", sections: [
+    { heading: "Overview", body: "The Silk Road was a network of trade routes linking China with Central Asia, the Middle East, and the Mediterranean world, active in various forms from roughly the second century BCE to the fifteenth century CE. It was never a single road but a shifting web of caravan trails, oasis towns, and sea lanes along which goods, technologies, religions, and ideas travelled alongside merchants, diplomats, and pilgrims." },
+    { heading: "Goods and exchange", body: "Chinese silk gave the network its modern name, but the traffic was far broader: spices, glassware, wool, gold, silver, horses, ceramics, paper, and precious stones all moved along the routes. Many crops also spread this way — grapes and alfalfa into China, peaches and citrus westward. Perhaps more consequential than the goods were the technologies that travelled with them, including papermaking, printing, gunpowder, and the magnetic compass." },
+    { heading: "Culture and religion", body: "The routes were conduits of culture. Buddhism travelled from India into Central Asia and China, where it took deep root; later, Islam spread along the same corridors. Art styles blended at crossroads such as Dunhuang, where cave murals show Indian, Persian, Greek, and Chinese influences side by side. The exchange was not always benign: diseases, most famously the Black Death, also followed the caravans." },
+    { heading: "Decline and memory", body: "The overland network declined as maritime routes grew cheaper and safer, and as political fragmentation made the long land journey more dangerous. The name itself is modern, coined by the geographer Ferdinand von Richthofen in 1877, yet it captures something real: for well over a millennium, these routes bound distant civilisations into a single, if loosely connected, world." }
+  ]},
+  { title: "The Structure of the Atom", sections: [
+    { heading: "Early models", body: "The idea that matter is made of indivisible particles dates to ancient Greek philosophers such as Democritus, but the modern atomic theory began with John Dalton in the early 1800s, who showed that elements combine in fixed proportions. In 1897 J. J. Thomson discovered the electron and proposed the plum-pudding model, in which negative electrons were embedded in a positively charged sphere. Ernest Rutherford's gold-foil experiments in 1909 overturned this picture, revealing that nearly all the atom's mass and positive charge are concentrated in a tiny nucleus." },
+    { heading: "The Bohr model", body: "Niels Bohr proposed in 1913 that electrons orbit the nucleus only at certain fixed energies, jumping between levels by absorbing or emitting light of specific wavelengths. The model explained the line spectra of hydrogen and introduced the idea of quantised energy, though it could not account for heavier atoms and was soon superseded." },
+    { heading: "The quantum model", body: "Modern atomic theory describes electrons not as orbiting particles but as probability clouds called orbitals, governed by the equations of quantum mechanics. Each electron in an atom is defined by a set of quantum numbers that fix its energy, shape, and orientation. This framework explains the structure of the periodic table: the chemical behaviour of each element follows from how its outermost electrons are arranged." },
+    { heading: "Inside the nucleus", body: "The nucleus itself is built from protons and neutrons, held together by the strong nuclear force against the electrical repulsion of the protons. Protons and neutrons are in turn composed of quarks. The number of protons defines the element, while differing numbers of neutrons produce isotopes, some of which are unstable and decay radioactively — a property harnessed in medicine, dating techniques, and energy production." }
+  ]},
+  { title: "The French Revolution", sections: [
+    { heading: "Causes", body: "The French Revolution began in 1789 amid a deep fiscal crisis, a rigid social hierarchy, and the spread of Enlightenment ideas about rights and government. France's treasury was exhausted by war, including support for the American Revolution, while the tax burden fell disproportionately on commoners. A failed harvest in 1788 sent bread prices soaring, and when King Louis XVI summoned the Estates-General for the first time in 175 years, long-suppressed grievances erupted into open conflict." },
+    { heading: "Early stages", body: "The Third Estate declared itself the National Assembly, and the storming of the Bastille on 14 July 1789 became the revolution's defining symbol. The Assembly abolished feudal privileges, issued the Declaration of the Rights of Man and of the Citizen, and reorganised the country as a constitutional monarchy. These early reforms promised liberty, equality, and fraternity, but divisions over the role of the king and the Church steadily deepened." },
+    { heading: "Radical phase", body: "War with Austria and Prussia, economic hardship, and fears of counter-revolution pushed politics toward extremism. The monarchy was abolished in 1792, and Louis XVI was executed the following January. Under the Committee of Public Safety, the Reign of Terror sent thousands to the guillotine before Maximilien Robespierre himself fell in July 1794, ending the most violent phase." },
+    { heading: "Aftermath and legacy", body: "Instability followed until Napoleon Bonaparte seized power in 1799, eventually crowning himself emperor. Yet the revolution permanently transformed France and Europe: it ended legal privilege, spread ideals of citizenship and secular law, abolished slavery in the colonies for a time, and demonstrated that a political order could be remade by popular action — a lesson that shaped every revolution that followed." }
+  ]},
+  { title: "Ocean Currents", sections: [
+    { heading: "Overview", body: "Ocean currents are the continuous, directed movements of seawater that circulate heat, nutrients, and gases around the planet. They are driven by wind, by differences in water temperature and salinity, by the rotation of the Earth, and by the shapes of coastlines and the seafloor. Together they form a vast circulation system that links every ocean basin." },
+    { heading: "Surface currents", body: "The upper ocean is driven mainly by prevailing winds. Trade winds push water westward along the equator, while westerlies drive it eastward at mid-latitudes. Deflected by the Coriolis effect, these flows spin into great circular systems called gyres, clockwise in the northern hemisphere and counter-clockwise in the southern. Warm currents such as the Gulf Stream carry tropical heat toward the poles, moderating the climates of Western Europe, while cold currents like the Humboldt bring cool, nutrient-rich water along the coasts they pass." },
+    { heading: "The deep circulation", body: "Beneath the surface runs a slower circulation driven by density. In the North Atlantic, cold, salty water becomes dense enough to sink, forming deep currents that creep southward through the ocean basins before eventually rising again centuries later. This global conveyor belt stores enormous quantities of heat and carbon in the deep ocean, making it a central regulator of long-term climate." },
+    { heading: "Effects and importance", body: "Currents shape weather patterns, fisheries, and shipping routes. El Niño events, in which Pacific currents shift and upwelling falters, can bring drought to Australia and floods to South America in the same year. Scientists monitor the circulation closely, since there is evidence that rapid warming and melting ice could slow parts of the deep current system, with wide-ranging consequences for climate." }
+  ]},
+  { title: "The Renaissance", sections: [
+    { heading: "Origins", body: "The Renaissance was a cultural and intellectual movement that began in the Italian city-states during the fourteenth century and spread across Europe over the following two hundred years. Its name, meaning rebirth, reflects a renewed interest in the art, literature, and learning of ancient Greece and Rome, encouraged by wealthy patrons such as the Medici of Florence and by contact with Byzantine and Islamic scholarship." },
+    { heading: "Humanism", body: "At the movement's intellectual core was humanism, a programme of study centred on grammar, rhetoric, history, poetry, and moral philosophy. Humanist scholars sought out and compared ancient manuscripts, developed critical methods for editing texts, and placed human affairs at the centre of inquiry. Figures such as Petrarch and Erasmus reshaped education across Europe, while Machiavelli applied a cool, empirical eye to the study of politics." },
+    { heading: "Art and science", body: "Renaissance artists pursued realism through the study of anatomy, perspective, and light. Leonardo da Vinci, Michelangelo, and Raphael produced works that remain among the most celebrated in history, while architects such as Brunelleschi revived classical forms. Observation and experiment also advanced anatomy, astronomy, and engineering, laying groundwork for the scientific revolution that followed with Copernicus, Galileo, and beyond." },
+    { heading: "Spread and decline", body: "Carried by trade, print, and travelling artists, Renaissance ideas reached northern Europe by the late fifteenth century, where they mingled with local traditions in the work of Dürer, Holbein, and Shakespeare. The movement faded as religious conflict and new artistic styles took hold, but its emphasis on inquiry, individual achievement, and the study of the classical world reshaped European civilisation permanently." }
+  ]}
+];
+
+function randomArticleIndex(except) {
+  var next = Math.floor(Math.random() * articles.length);
+  if (articles.length > 1 && next === except) next = (next + 1) % articles.length;
+  return next;
+}
+
+/* ================= state ================= */
+var STORAGE_KEY = "vaultframe-embeds";
+var starterEmbeds = [
+  { id: "bulbasaur", name: "Bulbasaur Games", url: "https://bulbasaurchat.github.io/games.html", skin: "frosted" },
+  { id: "piped", name: "Piped", url: "https://piped.video", skin: "invisible" }
+];
+var skins = ["invisible", "frosted", "terminal"];
+var skinDesc = {
+  invisible: "Player only, no extra chrome.",
+  frosted: "The translucent console shell.",
+  terminal: "A compact code-console frame."
+};
+
+var embeds = starterEmbeds.slice();
+var selectedId = null;            /* generic home screen until you pick something */
+var focusMode = true;
+var articleIndex = randomArticleIndex();
+var search = "";
+
+/* ================= helpers ================= */
+function $(id) { return document.getElementById(id); }
+function esc(s) {
+  return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+function getEmbedUrl(value) {
+  var m = value.match(/src=["']([^"']+)["']/i);
+  var candidate = (m ? m[1] : value).trim();
+  try {
+    var url = new URL(candidate);
+    return (url.protocol === "https:" || url.protocol === "http:") ? url.toString() : "";
+  } catch (e) { return ""; }
+}
+function loadEmbeds() {
+  try {
+    var saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved) return;
+    var parsed = JSON.parse(saved);
+    if (!Array.isArray(parsed) || parsed.length === 0) return;
+    /* drop the old Neon Drift sample so it never comes back */
+    parsed = parsed.filter(function (e) { return e && e.id !== "welcome" && !/neon drift/i.test(e.name || ""); });
+    var missing = starterEmbeds.filter(function (s) {
+      return !parsed.some(function (item) { return item.id === s.id; });
+    });
+    embeds = missing.length ? missing.concat(parsed) : parsed;
+  } catch (e) { localStorage.removeItem(STORAGE_KEY); }
+}
+function saveEmbeds(next) {
+  embeds = next;
+  /* blob: URLs from local files are session-only, never persist them */
+  var persist = next.filter(function (e) { return !String(e.id).indexOf("local-") === false || String(e.id).indexOf("local-") !== 0; });
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(persist)); } catch (e) {}
+}
+function selected() {
+  for (var i = 0; i < embeds.length; i++) if (embeds[i].id === selectedId) return embeds[i];
+  return null;
+}
+
+/* ================= cover ================= */
+function renderArticle() {
+  var a = articles[articleIndex] || articles[0];
+  $("aTitle").textContent = a.title;
+  var html = "";
+  for (var i = 0; i < a.sections.length; i++) {
+    html += "<section><h2>" + esc(a.sections[i].heading) + "</h2><p>" + esc(a.sections[i].body) + "</p></section>";
+  }
+  $("aSections").innerHTML = html;
+}
+function showCover() {
+  focusMode = true;
+  $("vault").hidden = true;
+  $("cover").hidden = false;
+  window.scrollTo(0, 0);
+}
+function showVault() {
+  focusMode = false;
+  $("cover").hidden = true;
+  $("vault").hidden = false;
+  window.scrollTo(0, 0);
+}
+
+/* ================= vault render ================= */
+function renderPlayer() {
+  var sel = selected();
+  var panel = $("playerPanel");
+  var chrome = $("skinChrome");
+  var termFoot = $("termFoot");
+  var stage = $("playerStage");
+  var home = $("playerHome");
+  var skin = sel ? sel.skin : "frosted";
+
+  panel.className = "glass rise skin-" + (sel ? sel.skin : "frosted");
+  panel.style.animationDelay = "0ms";
+
+  /* skin chrome */
+  if (!sel) {
+    chrome.innerHTML = "";
+    termFoot.innerHTML = "";
+  } else if (sel.skin === "terminal") {
+    var fname = sel.name.toLowerCase().replace(/ /g, "-");
+    chrome.innerHTML = '<div class="term-bar mono"><span class="term-dots"><i style="background:oklch(0.577 0.245 27.325/70%);"></i><i style="background:oklch(0.69 0.16 285/70%);"></i><i style="background:oklch(0.81 0.13 207/70%);"></i></span><span class="mono">vault@frame:~/' + esc(fname) + '</span><span style="color:var(--muted-fg);">bash</span></div>';
+    termFoot.innerHTML = '<div class="term-foot mono"><span>$</span><span style="color:var(--muted-fg);">stream --live --sandboxed</span><span class="cur"></span></div>';
+  } else if (sel.skin === "frosted") {
+    var fname2 = sel.name.toLowerCase().replace(/ /g, "-");
+    chrome.innerHTML = '<div class="frost-bar"><span class="mono" style="padding-left:.5rem;">preview · ' + esc(fname2) + '</span><span class="live mono" style="padding-right:.5rem;"><i></i> live</span></div>';
+    termFoot.innerHTML = "";
+  } else {
+    chrome.innerHTML = "";
+    termFoot.innerHTML = "";
+  }
+
+  /* stage content */
+  var oldFrame = stage.querySelector("iframe");
+  if (sel && sel.url) {
+    if (home) home.style.display = "none";
+    if (oldFrame) oldFrame.remove();
+    var f = document.createElement("iframe");
+    f.title = sel.name;
+    f.src = sel.url;
+    f.setAttribute("sandbox", "allow-scripts allow-same-origin allow-forms allow-pointer-lock");
+    f.setAttribute("allow", "fullscreen; autoplay");
+    stage.insertBefore(f, stage.firstChild);
+  } else {
+    if (oldFrame) oldFrame.remove();
+    if (home) home.style.display = "";
+  }
+}
+function renderLibrary() {
+  var list = $("libList");
+  var q = search.toLowerCase();
+  var filtered = embeds.filter(function (e) { return e.name.toLowerCase().indexOf(q) !== -1; });
+  var html = "";
+  for (var i = 0; i < filtered.length; i++) {
+    var e = filtered[i];
+    var cls = e.id === selectedId ? "btn btn-subtle" : "btn btn-ghost";
+    html += '<button type="button" class="' + cls + '" data-id="' + esc(e.id) + '" style="width:100%;height:auto;padding:.625rem .75rem;justify-content:flex-start;text-align:left;">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>' +
+      '<span class="name">' + esc(e.name) + '</span></button>';
+  }
+  if (filtered.length === 0) html = '<p class="lib-empty">No matching embeds</p>';
+  list.innerHTML = html;
+  var sel = selected();
+  $("embedCount").textContent = embeds.length + (embeds.length === 1 ? " embed" : " embeds") + " saved";
+  $("deleteBtn").disabled = embeds.length <= 1;
+  $("renameBtn").disabled = !sel;
+}
+function renderSkins() {
+  var sel = selected();
+  var html = "";
+  for (var i = 0; i < skins.length; i++) {
+    var s = skins[i];
+    var cls = sel && sel.skin === s ? "btn btn-subtle skin-btn" : "btn btn-glass skin-btn";
+    html += '<button type="button" class="' + cls + '" data-skin="' + s + '">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-top:2px;"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>' +
+      '<span><span class="k mono">skin</span><span class="t">' + s + '</span><span class="d">' + skinDesc[s] + '</span></span></button>';
+  }
+  $("skinBtns").innerHTML = html;
+}
+function renderVault() {
+  renderPlayer();
+  renderLibrary();
+  renderSkins();
+}
+
+/* ================= actions ================= */
+function addEmbed(name, source) {
+  var url = getEmbedUrl(source);
+  if (!name.trim() || !url) { $("mError").style.display = "block"; return false; }
+  var item = { id: (crypto.randomUUID ? crypto.randomUUID() : "e" + Date.now() + Math.random()), name: name.trim(), url: url, skin: "frosted" };
+  saveEmbeds(embeds.concat([item]));
+  selectedId = item.id;
+  $("mName").value = ""; $("mSource").value = ""; $("mError").style.display = "none";
+  $("modalWrap").classList.remove("open");
+  renderVault();
+  return true;
+}
+function removeSelected() {
+  var sel = selected();
+  if (!sel || embeds.length === 1) return;
+  var next = embeds.filter(function (e) { return e.id !== sel.id; });
+  saveEmbeds(next);
+  selectedId = null;
+  renderVault();
+}
+function renameSelected() {
+  var sel = selected();
+  if (!sel) return;
+  var nextName = prompt("Rename embed", sel.name);
+  if (!nextName || !nextName.trim()) return;
+  saveEmbeds(embeds.map(function (e) { return e.id === sel.id ? Object.assign({}, e, { name: nextName.trim() }) : e; }));
+  renderVault();
+}
+function setSkin(skin) {
+  var sel = selected();
+  if (!sel) return;
+  saveEmbeds(embeds.map(function (e) { return e.id === sel.id ? Object.assign({}, e, { skin: skin }) : e; }));
+  renderVault();
+}
+function handleFiles(files) {
+  var file = files && files[0];
+  if (!file) return;
+  var url = URL.createObjectURL(file);
+  var item = { id: "local-" + Date.now(), name: file.name.replace(/\.html?$/i, ""), url: url, skin: "frosted" };
+  var next = embeds.filter(function (e) { return String(e.id).indexOf("local-") !== 0; }).concat([item]);
+  embeds = next; /* keep blob item in memory only */
+  selectedId = item.id;
+  renderVault();
+}
+
+/* ================= events ================= */
+$("unlockBtn").addEventListener("click", showVault);
+$("focusBtn").addEventListener("click", showCover);
+$("addBtn").addEventListener("click", function () { $("modalWrap").classList.add("open"); $("mName").focus(); });
+$("mCancel").addEventListener("click", function () { $("modalWrap").classList.remove("open"); $("mError").style.display = "none"; });
+$("mAdd").addEventListener("click", function () { addEmbed($("mName").value, $("mSource").value); });
+$("fileInput").addEventListener("change", function (ev) { handleFiles(ev.target.files); ev.target.value = ""; });
+$("fsBtn").addEventListener("click", function () {
+  var f = document.querySelector("#playerStage iframe");
+  if (f) { if (f.requestFullscreen) f.requestFullscreen(); }
+  else { var st = $("playerStage"); if (st.requestFullscreen) st.requestFullscreen(); }
+});
+$("search").addEventListener("input", function (ev) { search = ev.target.value; renderLibrary(); });
+$("renameBtn").addEventListener("click", renameSelected);
+$("deleteBtn").addEventListener("click", removeSelected);
+$("copyBtn").addEventListener("click", function () { var s = selected(); if (s && s.url && navigator.clipboard) navigator.clipboard.writeText(s.url); });
+$("libList").addEventListener("click", function (ev) {
+  var btn = ev.target.closest("button[data-id]");
+  if (!btn) return;
+  selectedId = btn.getAttribute("data-id");
+  renderVault();
+});
+$("skinBtns").addEventListener("click", function (ev) {
+  var btn = ev.target.closest("button[data-skin]");
+  if (btn) setSkin(btn.getAttribute("data-skin"));
+});
+window.addEventListener("keydown", function (ev) {
+  var typing = /^(INPUT|TEXTAREA)$/.test(document.activeElement && document.activeElement.tagName);
+  if (ev.key === "Escape") {
+    if (typing) return;
+    articleIndex = randomArticleIndex(articleIndex);
+    renderArticle();
+    showCover();
+  } else if (ev.key === "=" && !typing) {
+    if (focusMode) showVault(); else showCover();
+  }
+});
+
+/* ================= init ================= */
+loadEmbeds();
+renderArticle();
+renderVault();
+</script>
+</body>
+</html>
